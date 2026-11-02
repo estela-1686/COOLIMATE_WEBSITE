@@ -1,0 +1,14 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Site content: everyone can read, only the admin emails below can publish.
+    match /site/{doc} {
+      allow read: if true;
+      allow write: if request.auth != null
+        && request.auth.token.email in [
+          'official.coolimate@gmail.com',
+          'gaeun.jeoung@gmail.com'
+        ];
+    }
+  }
+}
