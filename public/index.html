@@ -2779,9 +2779,9 @@ window.CM_FIREBASE={
     var el=e.target.closest&&e.target.closest('[data-ed]');if(!el||!ui.admin)return;
     var key=el.getAttribute('data-ed'),l=C.cur,html=clean(el.innerHTML);
     if(html===C.t(key))return;
-    var o=D().text[key]||(D().text[key]={});o[l]=html;o.m={};o.m[l]=1; // the last edited language is the source; the others follow it
+    var o=D().text[key]||(D().text[key]={});o[l]=html;if(l==='en')o.m={};
     changed();C.refresh();
-    if(AUTO_TR)translateKey(key,l);
+    if(AUTO_TR&&l==='en')translateKey(key,'en'); // English is the source: editing English updates every other language
   });
   document.addEventListener('keydown',function(e){
     var el=e.target.closest&&e.target.closest('[data-ed]');
@@ -2832,7 +2832,7 @@ window.CM_FIREBASE={
   function resizeImage(file,max){return new Promise(function(ok,bad){var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){var sc=Math.min(1,max/Math.max(im.width,im.height));var c=document.createElement('canvas');c.width=Math.round(im.width*sc);c.height=Math.round(im.height*sc);c.getContext('2d').drawImage(im,0,0,c.width,c.height);var png=/png|gif|webp/.test(file.type)&&max<=700;ok(c.toDataURL(png?'image/png':'image/jpeg',0.82))};im.onerror=bad;im.src=r.result};r.onerror=bad;r.readAsDataURL(file)})}
   document.addEventListener('change',function(e){
     var tg=e.target;
-    if(tg.id==='autotr'){AUTO_TR=tg.checked;store.set('coolimate-autotr',AUTO_TR?'on':'off');toast(AUTO_TR?A('글을 고치면 나머지 언어도 자동으로 번역해서 바꿔요. 마지막으로 고친 언어가 기준이에요.','Edits are translated into all the other languages. The language you edited last is the source.'):A('자동 번역을 껐어요.','Auto-translate is off.'));return}
+    if(tg.id==='autotr'){AUTO_TR=tg.checked;store.set('coolimate-autotr',AUTO_TR?'on':'off');toast(AUTO_TR?A('영어 글을 고치면 나머지 언어가 영어를 기준으로 자동 번역돼요. 다른 언어를 고치면 그 언어만 바뀌어요.','Editing English re-translates every other language. Editing another language changes only that language.'):A('자동 번역을 껐어요.','Auto-translate is off.'));return}
     if(!ui.admin)return;
     var f=tg.files&&tg.files[0];
     if(tg.dataset&&tg.dataset.tmimg!=null&&f){var mi=+tg.dataset.tmimg;resizeImage(f,700).then(function(u){var m=D().lists.team[mi];if(m){m.img=u;changed();C.refresh();toast(A('사진을 바꿨어요. “게시하기”를 누르면 사이트에 반영돼요.','Photo replaced. Publish to update the site.'))}});return}
@@ -2909,8 +2909,9 @@ window.CM_FIREBASE={
     if(i==='')arr.push(item);else arr[+i]=item;
     closeModal();changed();C.refresh();
     // auto-translate: the languages changed in this form are copied to the other languages
+    trJobs=trJobs.filter(function(jb){return jb.chg.indexOf('en')>-1});
     if(AUTO_TR&&trJobs.length){toast(A('다른 언어로 번역하는 중…','Translating to other languages…'),2500);
-      trJobs.forEach(function(jb){var src=jb.chg.indexOf(C.cur)>-1?C.cur:jb.chg[0],o=item[jb.k],txt=o[src];
+      trJobs.forEach(function(jb){var src='en',o=item[jb.k],txt=o[src];
         C.LANGS.filter(function(l){return jb.chg.indexOf(l)<0}).forEach(function(l){tr(txt,src,l).then(function(r){if(r&&item[jb.k]===o){o[l]=r;changed();C.refresh()}})})})}
   }
   document.addEventListener('click',function(e){
