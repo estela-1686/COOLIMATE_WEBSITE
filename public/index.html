@@ -1051,6 +1051,29 @@ html.bk-open{overflow:hidden}
 .hthumb:hover button,.hthumb button:focus{opacity:1}
 .hthumbs small{font-family:"JetBrains Mono",monospace;font-size:.68rem;color:var(--muted)}
 [data-hide][hidden]{display:none!important}
+/* v13: Join us application form */
+.apply{margin-top:56px;border:1px solid var(--line);border-radius:26px;background:var(--surface);padding:40px}
+.ap-head{max-width:640px;margin-bottom:28px}.ap-head h3{font-size:clamp(1.8rem,3vw,2.4rem);font-weight:700;margin:.2em 0 .3em}.ap-head p:last-child{color:var(--muted)}
+.ap-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 20px}.ap-grid .full{grid-column:1/-1}
+.ap-grid label,.ap-grid legend{display:block;font:500 .72rem "JetBrains Mono",monospace;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;padding:0}
+.ap-grid legend small{text-transform:none;letter-spacing:0;font-family:inherit}
+.ap-grid fieldset{border:0;margin:0;padding:0;min-width:0}
+.ap-grid input:not([type=checkbox]):not([type=radio]),.ap-grid textarea{width:100%;font:inherit;padding:.85em 1em;border:1px solid var(--line);border-radius:14px;background:var(--bg);color:var(--ink)}
+.ap-grid textarea{resize:vertical;min-height:96px}
+.ap-grid input:focus,.ap-grid textarea:focus{outline:none;border-color:var(--accent)}
+.ap-chips{display:flex;flex-wrap:wrap;gap:8px}
+.ap-chip{position:relative;display:inline-flex!important;margin:0!important;text-transform:none!important;letter-spacing:0!important;font:inherit!important;color:var(--ink)!important}
+.ap-chip input{position:absolute;opacity:0;width:1px;height:1px}
+.ap-chip span{border:1px solid var(--line);border-radius:999px;padding:.5em 1em;font-size:.92rem;cursor:pointer;background:var(--bg);transition:background .15s,border-color .15s}
+.ap-chip input:checked+span{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.ap-chip input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.ap-ok{display:flex!important;gap:10px;align-items:flex-start;text-transform:none!important;letter-spacing:0!important;font:inherit!important;font-size:.88rem!important;color:var(--muted)!important}
+.ap-ok input{margin-top:.25em;flex-shrink:0}
+.ap-trap{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
+.ap-foot{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px}
+.formmsg.ok{color:#1a7f4b}.formmsg.err{color:#CB181D}
+.hidebar .fstat{opacity:.8}
+@media (max-width:760px){.apply{padding:26px 20px}.ap-grid{grid-template-columns:1fr}}
 </style>
 
 <header class="site">
@@ -1370,6 +1393,28 @@ html.bk-open{overflow:hidden}
           <input id="newsEmail" type="email" placeholder="your@email.com" required>
           <button class="btn primary" type="submit" data-i18n="news.btn">Subscribe</button>
           <p class="formmsg" id="newsMsg" hidden></p>
+          <input class="ap-trap" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        </form>
+      </div>
+      <div class="apply" id="apply" data-hide="apply">
+        <div class="ap-head"><p class="label" data-i18n="ap.l">Apply</p><h3 data-i18n="ap.h">Apply to join Coolimate</h3><p data-i18n="ap.p">Tell us a little about yourself.</p></div>
+        <form id="applyForm" novalidate>
+          <div class="ap-grid">
+            <div><label for="apName"><span data-i18n="ap.name">Name</span> *</label><input id="apName" name="name" autocomplete="name" required maxlength="100"></div>
+            <div><label for="apLoc"><span data-i18n="ap.loc">Where you live</span> *</label><input id="apLoc" name="location" required maxlength="150" data-ph="ap.loc.ph"></div>
+            <div><label for="apEmail"><span data-i18n="f.email">Email</span> *</label><input id="apEmail" name="email" type="email" autocomplete="email" required maxlength="200" placeholder="your@email.com"></div>
+            <div><label for="apOrg"><span data-i18n="ap.org">School or organization</span></label><input id="apOrg" name="org" maxlength="150"></div>
+            <fieldset class="full"><legend data-i18n="ap.as">Applying as</legend><div class="ap-chips"><label class="ap-chip"><input type="radio" name="as" value="student"><span data-i18n="ap.as.student"></span></label><label class="ap-chip"><input type="radio" name="as" value="young"><span data-i18n="ap.as.young"></span></label><label class="ap-chip"><input type="radio" name="as" value="org"><span data-i18n="ap.as.org"></span></label><label class="ap-chip"><input type="radio" name="as" value="supporter"><span data-i18n="ap.as.supporter"></span></label><label class="ap-chip"><input type="radio" name="as" value="other"><span data-i18n="ap.as.other"></span></label></div></fieldset>
+            <fieldset class="full"><legend><span data-i18n="ap.int">Interests</span> * <small data-i18n="ap.multi">(choose all that apply)</small></legend><div class="ap-chips"><label class="ap-chip"><input type="checkbox" name="int" value="edu"><span data-i18n="ap.int.edu"></span></label><label class="ap-chip"><input type="checkbox" name="int" value="policy"><span data-i18n="ap.int.policy"></span></label><label class="ap-chip"><input type="checkbox" name="int" value="events"><span data-i18n="ap.int.events"></span></label><label class="ap-chip"><input type="checkbox" name="int" value="media"><span data-i18n="ap.int.media"></span></label><label class="ap-chip"><input type="checkbox" name="int" value="research"><span data-i18n="ap.int.research"></span></label><label class="ap-chip"><input type="checkbox" name="int" value="intl"><span data-i18n="ap.int.intl"></span></label><label class="ap-chip"><input type="checkbox" name="int" value="other"><span data-i18n="ap.int.other"></span></label></div></fieldset>
+            <div class="full"><label for="apReason"><span data-i18n="ap.reason">What led you to apply?</span> *</label><textarea id="apReason" name="reason" rows="3" required maxlength="2000" data-ph="ap.reason.ph"></textarea></div>
+            <div class="full"><label for="apWhy"><span data-i18n="ap.why">Your motivation</span> *</label><textarea id="apWhy" name="motivation" rows="4" required maxlength="3000" data-ph="ap.why.ph"></textarea></div>
+            <div><label for="apLangs"><span data-i18n="ap.langs">Languages you speak</span></label><input id="apLangs" name="langs" maxlength="150" data-ph="ap.langs.ph"></div>
+            <div><label for="apTime"><span data-i18n="ap.time">When you can take part</span></label><input id="apTime" name="time" maxlength="150" data-ph="ap.time.ph"></div>
+            <fieldset class="full"><legend data-i18n="ap.heard">How did you hear about us?</legend><div class="ap-chips"><label class="ap-chip"><input type="radio" name="heard" value="ig"><span data-i18n="ap.heard.ig"></span></label><label class="ap-chip"><input type="radio" name="heard" value="li"><span data-i18n="ap.heard.li"></span></label><label class="ap-chip"><input type="radio" name="heard" value="friend"><span data-i18n="ap.heard.friend"></span></label><label class="ap-chip"><input type="radio" name="heard" value="event"><span data-i18n="ap.heard.event"></span></label><label class="ap-chip"><input type="radio" name="heard" value="school"><span data-i18n="ap.heard.school"></span></label><label class="ap-chip"><input type="radio" name="heard" value="search"><span data-i18n="ap.heard.search"></span></label><label class="ap-chip"><input type="radio" name="heard" value="other"><span data-i18n="ap.heard.other"></span></label></div></fieldset>
+            <label class="full ap-ok"><input type="checkbox" id="apOk" required> <span><span data-i18n="ap.ok">I agree to the use of my details.</span> *</span></label>
+            <input class="ap-trap" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          </div>
+          <div class="ap-foot"><button class="btn primary" type="submit" data-i18n="ap.btn">Send application</button><p class="formmsg" id="apMsg" hidden></p></div>
         </form>
       </div>
     </div>
@@ -1873,6 +1918,52 @@ window.CM_FIREBASE={
   };
   // English for the country list (the list is now built from data, so these are no longer in the page)
   Object.assign(EN,{'pl1.b':'Korea','pl1.s':'Home base. LCOY Korea in Seoul and Yeosu, youth climate policy work.','pl2.b':'Madagascar','pl2.s':'Climate justice education since 2024 and a visit to the Korean Embassy.','pl3.b':'Brazil','pl3.s':'COP30 side panels in Belém, November 2025.','pl4.s':'COY21 and our Korea Pavilion side event, November 2026.'});
+  NEWT["ap.l"]={"en": "Apply", "ko": "참여 신청", "es": "Postula", "fr": "Candidater", "ar": "قدّم طلبك"};
+  NEWT["ap.h"]={"en": "Apply to join Coolimate", "ko": "Coolimate 참여 신청", "es": "Únete a Coolimate", "fr": "Rejoindre Coolimate", "ar": "انضم إلى Coolimate"};
+  NEWT["ap.p"]={"en": "Tell us a little about yourself and why you want to join. We read every application and reply by email.", "ko": "나에 대한 이야기와 함께하고 싶은 이유를 들려주세요. 모든 신청서를 꼼꼼히 읽고 이메일로 답장드려요.", "es": "Cuéntanos un poco sobre ti y por qué quieres unirte. Leemos cada solicitud y respondemos por correo.", "fr": "Parlez-nous un peu de vous et de ce qui vous donne envie de nous rejoindre. Nous lisons chaque candidature et répondons par e-mail.", "ar": "حدّثنا قليلًا عن نفسك ولماذا تريد الانضمام. نقرأ كل طلب ونرد عبر البريد الإلكتروني."};
+  NEWT["ap.name"]={"en": "Name", "ko": "이름", "es": "Nombre", "fr": "Nom", "ar": "الاسم"};
+  NEWT["ap.loc"]={"en": "Where you live", "ko": "사는 곳", "es": "Dónde vives", "fr": "Lieu de résidence", "ar": "مكان الإقامة"};
+  NEWT["ap.loc.ph"]={"en": "City, country", "ko": "도시, 나라 (예: 서울, 대한민국)", "es": "Ciudad, país", "fr": "Ville, pays", "ar": "المدينة، البلد"};
+  NEWT["ap.org"]={"en": "School or organization", "ko": "소속 (학교·기관)", "es": "Escuela u organización", "fr": "École ou organisation", "ar": "المدرسة أو المؤسسة"};
+  NEWT["ap.as"]={"en": "Applying as", "ko": "신청 유형", "es": "Te postulas como", "fr": "Vous êtes", "ar": "تتقدّم بصفتك"};
+  NEWT["ap.as.student"]={"en": "Student", "ko": "학생", "es": "Estudiante", "fr": "Étudiant·e", "ar": "طالب/ة"};
+  NEWT["ap.as.young"]={"en": "Young professional", "ko": "청년 직장인", "es": "Joven profesional", "fr": "Jeune professionnel·le", "ar": "شاب/ة عامل/ة"};
+  NEWT["ap.as.org"]={"en": "Organization", "ko": "기관·단체", "es": "Organización", "fr": "Organisation", "ar": "مؤسسة"};
+  NEWT["ap.as.supporter"]={"en": "Supporter", "ko": "후원자", "es": "Colaborador/a", "fr": "Soutien", "ar": "داعم/ة"};
+  NEWT["ap.as.other"]={"en": "Other", "ko": "기타", "es": "Otro", "fr": "Autre", "ar": "غير ذلك"};
+  NEWT["ap.int"]={"en": "Interests", "ko": "관심 분야", "es": "Intereses", "fr": "Centres d’intérêt", "ar": "الاهتمامات"};
+  NEWT["ap.multi"]={"en": "(choose all that apply)", "ko": "(여러 개 고를 수 있어요)", "es": "(elige todas las que quieras)", "fr": "(plusieurs choix possibles)", "ar": "(يمكنك اختيار أكثر من خيار)"};
+  NEWT["ap.int.edu"]={"en": "Climate education", "ko": "기후교육", "es": "Educación climática", "fr": "Éducation climatique", "ar": "التعليم المناخي"};
+  NEWT["ap.int.policy"]={"en": "Policy & advocacy (LCOY · COP)", "ko": "정책·옹호 활동 (LCOY · COP)", "es": "Política e incidencia (LCOY · COP)", "fr": "Plaidoyer et politiques (LCOY · COP)", "ar": "السياسات والمناصرة (LCOY · COP)"};
+  NEWT["ap.int.events"]={"en": "Events & campaigns", "ko": "행사·캠페인", "es": "Eventos y campañas", "fr": "Événements et campagnes", "ar": "الفعاليات والحملات"};
+  NEWT["ap.int.media"]={"en": "Design & content", "ko": "디자인·콘텐츠", "es": "Diseño y contenidos", "fr": "Design et contenus", "ar": "التصميم والمحتوى"};
+  NEWT["ap.int.research"]={"en": "Research", "ko": "연구", "es": "Investigación", "fr": "Recherche", "ar": "البحث"};
+  NEWT["ap.int.intl"]={"en": "International cooperation", "ko": "국제협력", "es": "Cooperación internacional", "fr": "Coopération internationale", "ar": "التعاون الدولي"};
+  NEWT["ap.int.other"]={"en": "Other", "ko": "기타", "es": "Otro", "fr": "Autre", "ar": "غير ذلك"};
+  NEWT["ap.reason"]={"en": "What led you to apply?", "ko": "신청하게 된 계기", "es": "¿Qué te llevó a postularte?", "fr": "Qu’est-ce qui vous a amené·e à candidater ?", "ar": "ما الذي دفعك إلى التقديم؟"};
+  NEWT["ap.reason.ph"]={"en": "A moment, an experience or a question that brought you here", "ko": "Coolimate를 찾게 된 경험이나 계기를 적어 주세요", "es": "Un momento, una experiencia o una pregunta que te trajo aquí", "fr": "Un moment, une expérience ou une question qui vous a mené·e ici", "ar": "لحظة أو تجربة أو سؤال قادك إلينا"};
+  NEWT["ap.why"]={"en": "Your motivation", "ko": "신청 동기", "es": "Tu motivación", "fr": "Votre motivation", "ar": "دافعك"};
+  NEWT["ap.why.ph"]={"en": "What would you like to do with us, and what do you hope to gain?", "ko": "Coolimate에서 해 보고 싶은 일과 기대하는 점을 적어 주세요", "es": "¿Qué te gustaría hacer con nosotros y qué esperas aprender?", "fr": "Que souhaitez-vous faire avec nous, et qu’en attendez-vous ?", "ar": "ماذا تودّ أن تفعل معنا، وما الذي تأمل أن تكسبه؟"};
+  NEWT["ap.langs"]={"en": "Languages you speak", "ko": "사용 언어", "es": "Idiomas que hablas", "fr": "Langues parlées", "ar": "اللغات التي تتحدثها"};
+  NEWT["ap.langs.ph"]={"en": "e.g. Korean, English", "ko": "예: 한국어, 영어", "es": "p. ej. coreano, inglés", "fr": "ex. coréen, anglais", "ar": "مثال: الكورية، الإنجليزية"};
+  NEWT["ap.time"]={"en": "When you can take part", "ko": "참여 가능한 시간", "es": "Cuándo puedes participar", "fr": "Vos disponibilités", "ar": "متى يمكنك المشاركة"};
+  NEWT["ap.time.ph"]={"en": "e.g. weekends, 5 hours a week", "ko": "예: 주말, 주 5시간", "es": "p. ej. fines de semana, 5 horas a la semana", "fr": "ex. le week-end, 5 h par semaine", "ar": "مثال: عطلات نهاية الأسبوع، 5 ساعات أسبوعيًا"};
+  NEWT["ap.heard"]={"en": "How did you hear about us?", "ko": "Coolimate를 알게 된 경로", "es": "¿Cómo nos conociste?", "fr": "Comment nous avez-vous connus ?", "ar": "كيف عرفت عنا؟"};
+  NEWT["ap.heard.ig"]={"en": "Instagram", "ko": "인스타그램", "es": "Instagram", "fr": "Instagram", "ar": "إنستغرام"};
+  NEWT["ap.heard.li"]={"en": "LinkedIn", "ko": "링크드인", "es": "LinkedIn", "fr": "LinkedIn", "ar": "لينكدإن"};
+  NEWT["ap.heard.friend"]={"en": "A friend", "ko": "지인 소개", "es": "Un amigo o amiga", "fr": "Un·e ami·e", "ar": "صديق"};
+  NEWT["ap.heard.event"]={"en": "An event", "ko": "행사", "es": "Un evento", "fr": "Un événement", "ar": "فعالية"};
+  NEWT["ap.heard.school"]={"en": "School", "ko": "학교", "es": "La escuela", "fr": "L’école", "ar": "المدرسة"};
+  NEWT["ap.heard.search"]={"en": "Web search", "ko": "검색", "es": "Búsqueda en internet", "fr": "Recherche en ligne", "ar": "البحث على الإنترنت"};
+  NEWT["ap.heard.other"]={"en": "Other", "ko": "기타", "es": "Otro", "fr": "Autre", "ar": "غير ذلك"};
+  NEWT["ap.ok"]={"en": "I agree that Coolimate collects my name, location, email and answers to review my application and contact me. They are kept for one year and then deleted.", "ko": "신청 검토와 연락을 위해 이름, 사는 곳, 이메일, 답변 내용을 수집·이용하는 데 동의합니다. 정보는 1년 동안 보관한 뒤 삭제돼요.", "es": "Acepto que Coolimate recopile mi nombre, lugar de residencia, correo y respuestas para revisar mi solicitud y contactarme. Se conservan un año y luego se eliminan.", "fr": "J’accepte que Coolimate collecte mon nom, mon lieu de résidence, mon e-mail et mes réponses pour étudier ma candidature et me contacter. Ils sont conservés un an puis supprimés.", "ar": "أوافق على أن تجمع Coolimate اسمي ومكان إقامتي وبريدي الإلكتروني وإجاباتي لمراجعة طلبي والتواصل معي. تُحفظ لمدة عام ثم تُحذف."};
+  NEWT["ap.btn"]={"en": "Send application", "ko": "신청서 보내기", "es": "Enviar solicitud", "fr": "Envoyer ma candidature", "ar": "إرسال الطلب"};
+  NEWT["ap.sending"]={"en": "Sending…", "ko": "보내는 중…", "es": "Enviando…", "fr": "Envoi…", "ar": "جارٍ الإرسال…"};
+  NEWT["ap.ok.sent"]={"en": "Thank you! Your application has been sent. We will reply by email.", "ko": "신청서를 보냈어요. 감사합니다! 이메일로 연락드릴게요.", "es": "¡Gracias! Tu solicitud se ha enviado. Te responderemos por correo.", "fr": "Merci ! Votre candidature a bien été envoyée. Nous vous répondrons par e-mail.", "ar": "شكرًا! تم إرسال طلبك. سنرد عليك عبر البريد الإلكتروني."};
+  NEWT["ap.err.req"]={"en": "Please fill in every field marked * and agree to the use of your details.", "ko": "* 표시가 있는 칸을 모두 채우고 개인정보 동의에 체크해 주세요.", "es": "Completa todos los campos con * y acepta el uso de tus datos.", "fr": "Veuillez remplir tous les champs marqués * et accepter l’utilisation de vos données.", "ar": "يرجى ملء كل الحقول المعلّمة بـ * والموافقة على استخدام بياناتك."};
+  NEWT["ap.err.net"]={"en": "Sorry, it could not be sent. Please try again, or email official.coolimate@gmail.com.", "ko": "보내지 못했어요. 다시 시도하거나 official.coolimate@gmail.com으로 메일 주세요.", "es": "No se pudo enviar. Inténtalo de nuevo o escribe a official.coolimate@gmail.com.", "fr": "L’envoi a échoué. Réessayez ou écrivez à official.coolimate@gmail.com.", "ar": "تعذّر الإرسال. حاول مرة أخرى أو راسلنا على official.coolimate@gmail.com."};
+  NEWT["news.ok"]={"en": "Thank you! You are subscribed.", "ko": "구독해 주셔서 감사합니다!", "es": "¡Gracias! Ya estás suscrito/a.", "fr": "Merci ! Vous êtes abonné·e.", "ar": "شكرًا! تم اشتراكك."};
+  NEWT["news.dup"]={"en": "You are already subscribed. Thank you!", "ko": "이미 구독 중이에요. 감사합니다!", "es": "Ya estabas suscrito/a. ¡Gracias!", "fr": "Vous êtes déjà abonné·e. Merci !", "ar": "أنت مشترك بالفعل. شكرًا!"};
   NEWT['tm.n1']={en:'member',ko:'명',es:'miembro',fr:'membre',ar:'عضو'};
   Object.keys(NEWT).forEach(function(k){EN[k]=NEWT[k].en;['ko','es','fr','ar'].forEach(function(l){if(T[l])T[l][k]=NEWT[k][l]})});
   // country positions on the map (Natural Earth projection, same as the dot map)
@@ -1932,7 +2023,7 @@ window.CM_FIREBASE={
 
   // ---------- site content (everything the admin mode can change) ----------
   var PAGES_DEF=[{id:'home',secs:['hero','mission','about','gallery','join']},{id:'about',secs:['greeting','mission','about','lcoy']},{id:'work',secs:['work','network']},{id:'partners',secs:['partners'],parent:'work'},{id:'library',secs:['library'],parent:'work'},{id:'journey',secs:['journey'],parent:'about'},{id:'stories',secs:['stories','social','gallery']},{id:'social',secs:['social'],parent:'stories'},{id:'videos',secs:['videos'],parent:'stories'},{id:'team',secs:['team'],parent:'about'},{id:'contact',secs:['contact']},{id:'join',secs:['join'],btn:1}];
-  var DEFAULT={v:12,hidden:{news:1},text:{},img:{},reps:{},links:{},csecs:[],cstype:{},pages:PAGES_DEF,lists:{
+  var DEFAULT={v:13,hidden:{news:1,apply:1},forms:{url:'',notify:0,reply:0},text:{},img:{},reps:{},links:{},csecs:[],cstype:{},pages:PAGES_DEF,lists:{
     stories:[
       {img:'st1',src:'The Korea Times',date:{k:'st1.date'},title:{k:'st1.h'},url:'https://www.koreatimes.co.kr/southkorea/environment-animals/20260726/lcoy-korea-2026-puts-youth-at-center-of-climate-action'},
       {img:'st2',src:'The Korea Times',date:{k:'st2.date'},title:{k:'st2.h'},url:'https://www.koreatimes.co.kr/amp/southkorea/environment-animals/20251227/korean-university-students-help-shape-future-of-climate-education-policy'},
@@ -1974,6 +2065,8 @@ window.CM_FIREBASE={
     if(d.vault)o.vault=d.vault;
     if(d.lastPublish)o.lastPublish=d.lastPublish;
     if(d.hidden&&typeof d.hidden==='object')o.hidden=d.hidden;
+    if(d.forms&&typeof d.forms==='object')o.forms=Object.assign(o.forms,d.forms);
+    if((d.v||1)<13&&o.hidden&&o.hidden.apply==null)o.hidden.apply=1;
     if((d.v||1)<12)fix12(o);
     if((d.v||1)<11)fix11(o);
     if((d.v||1)<10&&!o.pages.some(function(p){return p.id==='library'})){var wi2=-1;o.pages.forEach(function(p,i){if(p.id==='partners'||(wi2<0&&p.id==='work'))wi2=i});o.pages.splice(wi2>-1?wi2+1:o.pages.length,0,{id:'library',secs:['library'],parent:wi2>-1&&o.pages.some(function(p){return p.id==='work'})?'work':undefined})}
@@ -2047,7 +2140,7 @@ window.CM_FIREBASE={
     langList.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-current',b.dataset.lang===l?'true':'false')});
     try{localStorage.setItem('coolimate-lang',l)}catch(e){}
     document.querySelectorAll('.formmsg').forEach(function(m){m.hidden=true});
-    repCtl();renderLists();applyLinks();paintImgs();paintHide();applyEditable();fillInit();if(curPage)showPage(false,true);if(window.CMA)CMA.dock();
+    repCtl();renderLists();applyLinks();paintImgs();paintHide();if(typeof paintPh==='function')paintPh();applyEditable();fillInit();if(curPage)showPage(false,true);if(window.CMA)CMA.dock();
   }
   langBtn.addEventListener('click',function(e){e.stopPropagation();var open=langList.hidden;langList.hidden=!open;langBtn.setAttribute('aria-expanded',open)});
   langList.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;setLang(b.dataset.lang);langList.hidden=true;langBtn.setAttribute('aria-expanded','false');langBtn.focus()});
@@ -2121,7 +2214,7 @@ window.CM_FIREBASE={
   // blocks marked data-hide="name" can be hidden from visitors in admin mode (DATA.hidden[name])
   function paintHide(){var H=DATA.hidden||{};document.querySelectorAll('[data-hide]').forEach(function(el){var k=el.getAttribute('data-hide'),off=!!H[k];
     el.classList.toggle('blk-off',off);el.hidden=off&&!ui.admin;var bar=el.querySelector(':scope > .hidebar');if(bar)bar.remove();
-    if(ui.admin)el.insertAdjacentHTML('afterbegin','<div class="hidebar" contenteditable="false"><span>'+esc(off?A('숨김 · 방문자에게 안 보여요','Hidden from visitors'):A('공개 중','Visible'))+'</span><button type="button" data-act="hidetog" data-k="'+esc(k)+'">'+esc(off?A('보이게 하기','Show'):A('숨기기','Hide'))+'</button></div>')})}
+    if(ui.admin)el.insertAdjacentHTML('afterbegin','<div class="hidebar" contenteditable="false"><span>'+esc(off?A('숨김 · 방문자에게 안 보여요','Hidden from visitors'):A('공개 중','Visible'))+'</span><button type="button" data-act="hidetog" data-k="'+esc(k)+'">'+esc(off?A('보이게 하기','Show'):A('숨기기','Hide'))+'</button>'+((k==='news'||k==='apply')?'<button type="button" data-act="formcfg">⚙ '+esc(A('시트 연결 · 메일 알림','Sheet & email alerts'))+'</button><span class="fstat">'+esc((DATA.forms&&DATA.forms.url)?(A('시트 연결됨','Sheet connected')+(k==='apply'?' · '+(DATA.forms.notify?A('메일 알림 켜짐','email alerts on'):A('메일 알림 꺼짐','email alerts off')):'')):A('시트 연결 안 됨','No sheet yet'))+'</span>':'')+'</div>')})}
   // pages made in admin mode: one section with a title, a short text and cards
   function renderCsecs(){var mainEl=document.querySelector('main'),want=DATA.csecs||[];
     [].forEach.call(document.querySelectorAll('main > section.csec'),function(x){if(want.indexOf(x.id.slice(3))<0)x.remove()});
@@ -2436,7 +2529,27 @@ window.CM_FIREBASE={
       if(!bad.length)f.reset();
     });
   }
-  wire('newsForm','newsMsg',['newsEmail'],'msg.newsOk');
+  // forms: newsletter + Join us application -> Google Sheet via Apps Script (DATA.forms.url)
+  function formUrl(){return (DATA.forms&&DATA.forms.url)||''}
+  function sendForm(d){d.lang=cur;d.page=location.href.split('#')[0];
+    return fetch(formUrl(),{method:'POST',body:JSON.stringify(d)}).then(function(r){return r.json()})}
+  function fmsg(el,key,ok){el.hidden=false;el.textContent=t(key)||key;el.classList.toggle('ok',!!ok);el.classList.toggle('err',!ok)}
+  function noUrl(el){fmsg(el,ui.admin?A('아직 구글 시트가 연결되지 않았어요. 이 칸 위의 “시트 연결”에서 주소를 넣어 주세요.','No Google Sheet connected yet. Use “Connect sheet” above.'):'ap.err.net',false)}
+  document.getElementById('newsForm').addEventListener('submit',function(e){e.preventDefault();var f=e.target,msg=document.getElementById('newsMsg'),em=document.getElementById('newsEmail').value.trim();
+    if(!/^\S+@\S+\.\S+$/.test(em))return fmsg(msg,'msg.errEmail',false);
+    if(!formUrl())return noUrl(msg);
+    var b=f.querySelector('button');b.disabled=true;
+    sendForm({type:'subscribe',email:em,website:f.website.value}).then(function(r){if(!r||!r.ok)throw 0;fmsg(msg,r.dup?'news.dup':'news.ok',true);f.reset()}).catch(function(){fmsg(msg,'ap.err.net',false)}).then(function(){b.disabled=false})});
+  var apForm=document.getElementById('applyForm');
+  function apVals(name){return [].map.call(apForm.querySelectorAll('input[name="'+name+'"]:checked'),function(x){var s=x.parentNode.querySelector('span');return s?s.textContent.trim():x.value})}
+  apForm.addEventListener('submit',function(e){e.preventDefault();var msg=document.getElementById('apMsg'),g=function(n){return (apForm.elements[n].value||'').trim()};
+    var d={type:'apply',name:g('name'),location:g('location'),email:g('email'),org:g('org'),as:apVals('as').join(', '),interests:apVals('int').join(', '),reason:g('reason'),motivation:g('motivation'),langs:g('langs'),time:g('time'),heard:apVals('heard').join(', '),consent:document.getElementById('apOk').checked,website:g('website'),
+      notify:!!(DATA.forms&&DATA.forms.notify),reply:!!(DATA.forms&&DATA.forms.reply)};
+    if(!d.name||!d.location||!/^\S+@\S+\.\S+$/.test(d.email)||!d.interests||!d.reason||!d.motivation||!d.consent)return fmsg(msg,'ap.err.req',false);
+    if(!formUrl())return noUrl(msg);
+    var b=apForm.querySelector('button[type=submit]');b.disabled=true;fmsg(msg,'ap.sending',true);
+    sendForm(d).then(function(r){if(!r||!r.ok)throw 0;fmsg(msg,'ap.ok.sent',true);apForm.reset()}).catch(function(){fmsg(msg,'ap.err.net',false)}).then(function(){b.disabled=false})});
+  function paintPh(){document.querySelectorAll('[data-ph^="ap."]').forEach(function(x){x.placeholder=t(x.getAttribute('data-ph'))})}
   
 
   // ===== Files: PDFs and pictures on any section or card, the Library page, and a book-style PDF viewer =====
@@ -3179,6 +3292,21 @@ window.CM_FIREBASE={
     ].join('</p><p>')+'</p></div></div>','<div class="r"><button type="button" class="mbtn pri" data-act="close">'+A('알겠어요','Got it')+'</button></div>',true);
   }
 
+  /* ---------- forms: Google Sheet + email alerts ---------- */
+  function openForms(){var F=D().forms||(D().forms={url:'',notify:0,reply:0});
+    modal(A('시트 연결 · 메일 알림','Sheet & email alerts'),
+      '<p>'+A('뉴스레터 구독과 참여 신청은 구글 시트에 저장돼요. 구글 Apps Script 웹 앱 주소를 넣어 주세요. 바꾼 뒤에는 “게시하기”를 눌러야 사이트에 반영돼요.','Newsletter sign-ups and applications are saved to a Google Sheet. Paste the Apps Script web app URL, then Publish.')+'</p>'+
+      '<div class="fg"><div class="full"><label for="fm-url">'+A('웹 앱 주소','Web app URL')+'</label><input id="fm-url" placeholder="https://script.google.com/macros/s/…/exec" value="'+esc(F.url||'')+'"></div>'+
+      '<div class="full"><label class="chk" style="display:flex;gap:8px;align-items:center;text-transform:none;font-size:.9rem"><input type="checkbox" id="fm-notify"'+(F.notify?' checked':'')+'> '+A('참여 신청이 오면 official.coolimate@gmail.com으로 메일 알림 받기','Email official.coolimate@gmail.com for each application')+'</label></div>'+
+      '<div class="full"><label class="chk" style="display:flex;gap:8px;align-items:center;text-transform:none;font-size:.9rem"><input type="checkbox" id="fm-reply"'+(F.reply?' checked':'')+'> '+A('신청자에게 “잘 받았어요” 자동 답장 보내기 (메일 알림이 켜져 있을 때만)','Send applicants an automatic “we got it” reply (only with email alerts on)')+'</label></div></div>'+
+      '<p class="note" id="fm-test-out"></p>',
+      '<button type="button" class="mbtn" data-act="formtest">'+A('연결 확인','Test')+'</button><div class="r"><button type="button" class="mbtn" data-act="close">'+A('취소','Cancel')+'</button><button type="button" class="mbtn pri" data-act="formsave">'+A('저장','Save')+'</button></div>');
+  }
+  function formTest(){var u=val('fm-url'),o=document.getElementById('fm-test-out');if(!/^https:\/\/script\.google(usercontent)?\.com\//.test(u))return merr(A('script.google.com 으로 시작하는 주소를 넣어 주세요.','Use the script.google.com URL.'));merr('');
+    o.textContent=A('확인하는 중…','Checking…');fetch(u).then(function(r){return r.json()}).then(function(j){o.textContent=j&&j.ok?A('✓ 연결됐어요.','✓ Connected.'):A('응답이 이상해요. 배포 설정을 확인해 주세요.','Unexpected reply. Check the deployment.')}).catch(function(){o.textContent=A('연결하지 못했어요. 웹 앱의 액세스 권한이 “모든 사용자”인지 확인해 주세요. (미리보기 화면에서는 막혀 있어요)','Could not connect. Check that access is “Anyone”.')})}
+  function formSave(){var u=val('fm-url');if(u&&!/^https:\/\/script\.google(usercontent)?\.com\//.test(u))return merr(A('script.google.com 으로 시작하는 주소를 넣어 주세요.','Use the script.google.com URL.'));
+    var n=document.getElementById('fm-notify').checked,r=document.getElementById('fm-reply').checked;D().forms={url:u,notify:n?1:0,reply:n&&r?1:0};changed();C.refresh();closeModal();toast(A('저장했어요. “게시하기”를 누르면 사이트에 반영돼요.','Saved. Publish to apply it to the site.'))}
+
   /* ---------- pages (menu tabs) ---------- */
   function secName(id){var x=document.getElementById(id);if(!x)return id;var h=x.querySelector('h2,h1');var n=h?h.innerHTML.replace(/<br\s*\/?>/gi,' ').replace(/<[^>]+>/g,'').replace(/&amp;/g,'&').replace(/\s+/g,' ').trim():'';
     if(id==='hero')return A('첫 화면','Hero');if(!n){var lb=x.querySelector('.label');n=lb?lb.textContent.trim():''}return (n||id)+(/^cs-/.test(id)?A(' · 직접 만든 섹션',' · custom'):'')}
@@ -3299,6 +3427,9 @@ window.CM_FIREBASE={
     if(act==='setup')return doSetup(b);
     if(act==='practice'){MK=null;VAULT=null;return enterAdmin({id:A('연습','Practice'),practice:true})}
     if(act==='logout')return exitAdmin();
+    if(act==='formcfg')return openForms();
+    if(act==='formtest')return formTest();
+    if(act==='formsave')return formSave();
     if(act==='admlang'){ADM=ADM==='ko'?'en':'ko';store.set('coolimate-admlang',ADM);C.refresh();return}
     if(act==='help')return openHelp();
     if(act==='publish')return publish();
