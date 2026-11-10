@@ -17,3 +17,16 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_COOLIMATE }}
           channelId: live
           projectId: coolimate
+  # Firestore security rules (firestore.rules). Kept separate so a failure here never blocks the site deploy.
+  deploy_rules:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy Firestore rules
+        env:
+          SA_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_COOLIMATE }}
+        run: |
+          echo "$SA_JSON" > "$RUNNER_TEMP/sa.json"
+          export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/sa.json"
+          npx --yes firebase-tools@13 deploy --only firestore:rules --project coolimate --non-interactive

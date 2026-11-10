@@ -1,14 +1,32 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Site content: everyone can read, only the admin emails below can publish.
-    match /site/{doc} {
-      allow read: if true;
-      allow write: if request.auth != null
+    // Owners are fixed here. Other admins are documents in /admins (one per email),
+    // added and removed by an owner from the site's "Accounts" page.
+    function isOwner() {
+      return request.auth != null
         && request.auth.token.email in [
           'official.coolimate@gmail.com',
           'gaeun.jeoung@gmail.com'
         ];
+    }
+    function isAdmin() {
+      return request.auth != null
+        && (isOwner() || exists(/databases/$(database)/documents/admins/$(request.auth.token.email)));
+    }
+    // Site content and the last published versions: everyone can read, only admins can publish.
+    match /site/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    // Admin list: owners manage it; an admin can read their own entry.
+    match /admins/{email} {
+      allow read: if isOwner() || (request.auth != null && request.auth.token.email == email);
+      allow write: if isOwner();
+    }
+    // Publish log (who published, what changed): admins only.
+    match /adminlog/{doc} {
+      allow read, write: if isAdmin();
     }
   }
 }
